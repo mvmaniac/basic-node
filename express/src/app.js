@@ -1,10 +1,26 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const nunjucks = require('nunjucks');
+
+dotenv.config();
+
+const indexRouter = require('./routes');
+const userRouter = require('./routes/user');
+const viewRouter = require('./routes/view');
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
+app.set('view engine', 'html');
+
+// src 폴더 아래에 있어서...
+nunjucks.configure(`src/views`, {
+  express: app,
+  watch: true
+});
 
 app.use(morgan('dev')); // 개발 시
 // app.use(morgan('combined')); // 운영 시
@@ -12,7 +28,18 @@ app.use(morgan('dev')); // 개발 시
 // 정적 파일 제공
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-app.use(cookieParser('cookie-password'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true
+    }
+  })
+);
 
 // bodyParser 대체
 app.use(express.json());
@@ -34,23 +61,10 @@ app.use(
   // }
 );
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.get('/about', (req, res) => {
-  res.send('about');
-});
-
-// 와일드 카드는 다른 라우터 보다 아래로 설정 (위에서 부터 아래로 url 매칭이 되는게 실행 되기 떄문)
-app.get('/param/:name', (req, res) => {
-  res.send(`hello ${req.params.name}`);
-});
-
-// 모든 get 요청에 대한 처리
-// app.get('*', (req, res) => {
-//   res.send('hello everyone');
-// });
+// 라우터 분리 처리
+app.use('/', indexRouter);
+app.use('/user', userRouter);
+app.use('/view', viewRouter);
 
 // 404 처리 미들웨어 (맞는 라우터를 못찾기 때문에)
 // app.use((req, res, next) => {
@@ -64,5 +78,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(app.get('port'), () => {
-  console.log('server listen...');
+  console.log(`server listen...${app.get('port')}`);
 });
