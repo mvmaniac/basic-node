@@ -2,7 +2,7 @@
   "name": "mysql",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
     "dev": "nodemon src/app",
     "start": "node src/app"
@@ -20,7 +20,7 @@
     "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
-    "eslint": "^7.16.0",
+    "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",

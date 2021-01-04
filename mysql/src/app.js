@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 
 const {sequelize} = require('./models');
+const indexRouter = require('./routes');
+const usersRouter = require('./routes/users');
+const commentsRouter = require('./routes/comments');
 
 const app = express();
 app.set('port', process.env.PORT || 3001);
@@ -27,6 +30,10 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/comments', commentsRouter);
 
 // 여기까지 왔다는 것은 매칭되는 라우터 경로가 없는 것으로 판단함
 // 그래서 404로 에러 미들웨어로 던짐
