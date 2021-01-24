@@ -9,7 +9,7 @@
   "test": {
     "username": "dev",
     "password": "dev",
-    "database": "nodejs",
+    "database": "nodejs_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
