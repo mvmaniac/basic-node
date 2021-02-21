@@ -1,0 +1,24 @@
+{
+  "name": "nodecli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/command.js",
+  "bin": {
+    "cli": "src/command.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.1.0",
+    "inquirer": "^7.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "^2.2.1"
+  }
+}
