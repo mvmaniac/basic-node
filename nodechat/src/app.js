@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
-const ColorHash = require('color-hash');
+const ColorHash = require('color-hash').default;
 const dotenv = require('dotenv');
 
 dotenv.config();
