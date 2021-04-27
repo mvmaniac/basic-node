@@ -1,5 +1,5 @@
 {
-  "name": "node-bird-api",
+  "name": "nodebird-api",
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",
@@ -11,27 +11,30 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
-    "dotenv": "^8.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
+    "express-rate-limit": "^5.2.6",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
-    "nunjucks": "^3.2.2",
+    "nunjucks": "^3.2.3",
     "passport": "^0.4.1",
-    "passport-kakao": "^1.0.0",
+    "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.3.5",
+    "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^7.17.0",
+    "eslint": "^7.28.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
     "nodemon": "^2.0.7",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.1"
   }
 }
