@@ -10,10 +10,11 @@ const connect = () => {
   mongoose.connect(
     MONGO_URL,
     {
-      dbName: 'nodechat',
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true
+      dbName: 'nodechat'
+      // mongoose 6.x 이상부터는 아래 옵션은 자동으로 true임...
+      // useNewUrlParser: true,
+      // useCreateIndex: true,
+      // useUnifiedTopology: true
     },
     (error) => {
       if (error) {
