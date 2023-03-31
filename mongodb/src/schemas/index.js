@@ -1,36 +1,25 @@
 const mongoose = require('mongoose');
 
-const connect = () => {
-  if (process.env.NODE_ENV !== 'production') {
-    mongoose.set('debug', true);
-  }
-  mongoose.connect(
-    'mongodb://dev:dev@localhost:27017/nodejs',
-    {
-      dbName: 'nodejs'
-      // mongoose 6.x 이상부터는 아래 옵션은 자동으로 true임...
-      // useNewUrlParser: true,
-      // useCreateIndex: true,
-      // useUnifiedTopology: true
-    },
-    (error) => {
-      if (error) {
-        console.log('몽고디비 연결 에러', error);
-      } else {
-        console.log('몽고디비 연결 성공');
+const connect = async () => {
+  try {
+    await mongoose.connect(
+      'mongodb://dev:dev@127.0.0.1:27017/?authMechanism=DEFAULT',
+      {
+        dbName: 'nodejs',
+        connectTimeoutMS: 10000, // 30초 (default)
+        socketTimeoutMS: 360000 // 6분 (default)
       }
-    }
-  );
+    );
+    console.log('MongoDB connected');
+  } catch (err) {
+    console.error('MongoDB connect error', err);
+  }
 };
 
-mongoose.connection.on('error', (error) => {
-  console.error('몽고디비 연결 에러', error);
-});
-
-mongoose.connection.on('disconnected', (error) => {
-  console.error(error);
-  console.error('몽고디비 연결이 끊겼습니다. 연결을 재시도합니다.');
-  connect();
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error'));
+db.on('disconnected', () => {
+  console.log('MongoDB disconnected');
 });
 
 module.exports = connect;

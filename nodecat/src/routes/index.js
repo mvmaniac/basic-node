@@ -18,7 +18,7 @@ const request = async (req, api) => {
 
     // API 요청 동시에 응답 값 반환
     return await axios.get(`${URL}${api}`, {
-      headers: {authorization: req.session.jwt}
+      headers: { authorization: req.session.jwt }
     });
   } catch (error) {
     if (error.response.status === 419) {
@@ -60,7 +60,7 @@ router.get('/search/:hashtag', async (req, res, next) => {
 
 router.get('/', (req, res) => {
   // 원래는 프론트엔드용 시크릿 키를 따로 주어야 함, 서버용과 프론트 엔드용 나뉘어야 함
-  res.render('main', {key: process.env.CLIENT_SECRET});
+  res.render('main', { key: process.env.CLIENT_SECRET });
 });
 
 module.exports = router;

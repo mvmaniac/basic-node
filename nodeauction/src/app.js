@@ -11,7 +11,7 @@ dotenv.config();
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const {sequelize} = require('./models');
+const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 const sse = require('./sse');
 const webSocket = require('./socket');
@@ -28,7 +28,7 @@ nunjucks.configure('src/views', {
   watch: true
 });
 sequelize
-  .sync({force: false})
+  .sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -50,7 +50,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(sessionMiddleware);
 app.use(passport.initialize());

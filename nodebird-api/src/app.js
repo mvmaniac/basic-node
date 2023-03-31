@@ -15,7 +15,7 @@ const v2 = require('./routes/v2');
 const authRouter = require('./routes/auth');
 const indexRouter = require('./routes');
 
-const {sequelize} = require('./models');
+const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
 passportConfig();
@@ -30,7 +30,7 @@ nunjucks.configure('src/views', {
 });
 
 sequelize
-  .sync({force: false})
+  .sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -43,7 +43,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({

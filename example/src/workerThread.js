@@ -11,13 +11,13 @@ if (isMainThread) {
 
   threads.add(
     new Worker(__filename, {
-      workerData: {start: 1}
+      workerData: { start: 1 }
     })
   );
 
   threads.add(
     new Worker(__filename, {
-      workerData: {start: 2}
+      workerData: { start: 2 }
     })
   );
 

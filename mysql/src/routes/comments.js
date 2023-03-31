@@ -1,5 +1,5 @@
 const express = require('express');
-const {User, Comment} = require('../models');
+const { User, Comment } = require('../models');
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router
           comment: req.body.comment
         },
         {
-          where: {id: req.params.id}
+          where: { id: req.params.id }
         }
       );
       res.json(result);
@@ -37,7 +37,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Comment.destroy({where: {id: req.params.id}});
+      const result = await Comment.destroy({ where: { id: req.params.id } });
       res.json(result);
     } catch (err) {
       console.error(err);

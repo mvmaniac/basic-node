@@ -10,7 +10,7 @@ router.post('/', async (req, res, next) => {
       comment: req.body.comment
     });
     console.log(comment);
-    const result = await Comment.populate(comment, {path: 'commenter'});
+    const result = await Comment.populate(comment, { path: 'commenter' });
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -38,7 +38,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Comment.remove({_id: req.params.id});
+      const result = await Comment.deleteOne({ _id: req.params.id });
       res.json(result);
     } catch (err) {
       console.error(err);

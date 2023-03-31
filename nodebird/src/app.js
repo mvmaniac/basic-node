@@ -16,7 +16,7 @@ const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 
-const {sequelize} = require('./models');
+const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
 passportConfig(); // 패스포트 설정
@@ -31,7 +31,7 @@ nunjucks.configure('src/views', {
 });
 
 sequelize
-  .sync({force: false})
+  .sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -42,7 +42,7 @@ sequelize
 if (process.env.NODE_ENV === 'production') {
   // app.enable('trust proxy');
   app.use(morgan('combined'));
-  app.use(helmet({contentSecurityPolicy: false}));
+  app.use(helmet({ contentSecurityPolicy: false }));
   app.use(hpp());
 } else {
   app.use(morgan('dev'));
@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 const sessionOption = {

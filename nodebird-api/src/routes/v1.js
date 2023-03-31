@@ -1,19 +1,19 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
-const {verifyToken, deprecated} = require('./middlewares');
-const {Domain, User, Post, Hashtag} = require('../models');
+const { verifyToken, deprecated } = require('./middlewares');
+const { Domain, User, Post, Hashtag } = require('../models');
 
 const router = express.Router();
 
 router.use(deprecated); // 모든 라우터 한번에 적용
 
 router.post('/token', async (req, res) => {
-  const {clientSecret} = req.body;
+  const { clientSecret } = req.body;
 
   try {
     const domain = await Domain.findOne({
-      where: {clientSecret},
+      where: { clientSecret },
       include: {
         model: User,
         attribute: ['nick', 'id']
@@ -59,7 +59,7 @@ router.get('/test', verifyToken, (req, res) => {
 });
 
 router.get('/posts/my', verifyToken, (req, res) => {
-  Post.findAll({where: {userId: req.decoded.id}})
+  Post.findAll({ where: { userId: req.decoded.id } })
     .then((posts) => {
       console.log(posts);
       res.json({
@@ -79,7 +79,9 @@ router.get('/posts/my', verifyToken, (req, res) => {
 
 router.get('/posts/hashtag/:title', verifyToken, async (req, res) => {
   try {
-    const hashtag = await Hashtag.findOne({where: {title: req.params.title}});
+    const hashtag = await Hashtag.findOne({
+      where: { title: req.params.title }
+    });
 
     if (!hashtag) {
       return res.status(404).json({

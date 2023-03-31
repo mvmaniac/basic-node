@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const RateLimit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit');
 
 // req, res, next 가 있으면 미들웨어...
 exports.isLoggedIn = (req, res, next) => {
@@ -39,11 +39,10 @@ exports.verifyToken = (req, res, next) => {
   }
 };
 
-exports.apiLimiter = new RateLimit({
+exports.apiLimiter = rateLimit({
   // 현재 설정이 1분에 10번만 요청 가능
   windowMs: 60 * 1000, // 1분
   max: 10,
-  delayMs: 0,
   handler(req, res) {
     res.status(this.statusCode).json({
       code: this.statusCode, // 기본값 429

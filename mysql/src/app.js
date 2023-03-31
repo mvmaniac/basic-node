@@ -3,7 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 
-const {sequelize} = require('./models');
+const { sequelize } = require('./models');
 const indexRouter = require('./routes');
 const usersRouter = require('./routes/users');
 const commentsRouter = require('./routes/comments');
@@ -18,7 +18,7 @@ nunjucks.configure('src/views', {
 });
 
 sequelize
-  .sync({force: false})
+  .sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -29,7 +29,7 @@ sequelize
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

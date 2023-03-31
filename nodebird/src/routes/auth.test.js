@@ -1,5 +1,5 @@
 const request = require('supertest');
-const {sequelize} = require('../models');
+const { sequelize } = require('../models');
 const app = require('../app');
 
 beforeAll(async () => {
@@ -10,7 +10,7 @@ describe('POST /join', () => {
   test('로그인 안 했으면 가입', (done) => {
     request(app)
       .post('/auth/join')
-      .send({email: 'test@gmail.com', password: '1234', nick: '테스트'})
+      .send({ email: 'test@gmail.com', password: '1234', nick: '테스트' })
       .expect('Location', '/')
       .expect(302, done);
   });
@@ -30,7 +30,7 @@ describe('POST /join', () => {
     const message = encodeURIComponent('로그인한 상태입니다.');
     agent
       .post('/auth/join')
-      .send({email: 'test@gmail.com', password: '1234'})
+      .send({ email: 'test@gmail.com', password: '1234' })
       .expect('Location', `/?error=${message}`)
       .expect(302, done);
   });
@@ -96,5 +96,5 @@ describe('GET /logout', () => {
 });
 
 afterAll(async () => {
-  await sequelize.sync({force: true});
+  await sequelize.sync({ force: true });
 });

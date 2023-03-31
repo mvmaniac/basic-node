@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const url = require('url');
 
-const {verifyToken, apiLimiter} = require('./middlewares');
-const {Domain, User, Post, Hashtag} = require('../models');
+const { verifyToken, apiLimiter } = require('./middlewares');
+const { Domain, User, Post, Hashtag } = require('../models');
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.use(async (req, res, next) => {
 
   const url = new URL(req.get('origin'));
   const domain = await Domain.findOne({
-    where: {host: url?.host}
+    where: { host: url?.host }
   });
 
   if (domain) {
@@ -29,11 +29,11 @@ router.use(async (req, res, next) => {
 });
 
 router.post('/token', apiLimiter, async (req, res) => {
-  const {clientSecret} = req.body;
+  const { clientSecret } = req.body;
 
   try {
     const domain = await Domain.findOne({
-      where: {clientSecret},
+      where: { clientSecret },
       include: {
         model: User,
         attribute: ['nick', 'id']
@@ -78,7 +78,7 @@ router.get('/test', verifyToken, apiLimiter, (req, res) => {
 });
 
 router.get('/posts/my', verifyToken, apiLimiter, (req, res) => {
-  Post.findAll({where: {userId: req.decoded.id}})
+  Post.findAll({ where: { userId: req.decoded.id } })
     .then((posts) => {
       console.log(posts);
       res.json({
@@ -101,7 +101,9 @@ router.get(
   apiLimiter,
   async (req, res) => {
     try {
-      const hashtag = await Hashtag.findOne({where: {title: req.params.title}});
+      const hashtag = await Hashtag.findOne({
+        where: { title: req.params.title }
+      });
 
       if (!hashtag) {
         return res.status(404).json({

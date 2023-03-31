@@ -3,11 +3,11 @@ const path = require('path');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-router.get('/about', (req, res) => {
+router.get('/about', (_req, res) => {
   res.send('about');
 });
 

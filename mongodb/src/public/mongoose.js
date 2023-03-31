@@ -28,7 +28,9 @@ async function getComment(id) {
         }
         try {
           // eslint-disable-next-line no-undef
-          await axios.patch(`/comments/${comment._id}`, {comment: newComment});
+          await axios.patch(`/comments/${comment._id}`, {
+            comment: newComment
+          });
           getComment(id);
         } catch (err) {
           console.error(err);
@@ -115,7 +117,7 @@ document.getElementById('user-form').addEventListener('submit', async (e) => {
   }
   try {
     // eslint-disable-next-line no-undef
-    await axios.post('/users', {name, age, married});
+    await axios.post('/users', { name, age, married });
     getUser();
   } catch (err) {
     console.error(err);
@@ -142,7 +144,7 @@ document
     }
     try {
       // eslint-disable-next-line no-undef
-      await axios.post('/comments', {id, comment});
+      await axios.post('/comments', { id, comment });
       getComment(id);
     } catch (err) {
       console.error(err);

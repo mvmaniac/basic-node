@@ -1,6 +1,6 @@
-const {Op} = require('sequelize');
+const { Op } = require('sequelize');
 
-const {Good, Auction, User, sequelize} = require('./models');
+const { Good, Auction, User, sequelize } = require('./models');
 
 module.exports = async () => {
   console.log('checkAuction');
@@ -12,24 +12,27 @@ module.exports = async () => {
     const targets = await Good.findAll({
       where: {
         SoldId: null,
-        createdAt: {[Op.lte]: yesterday}
+        createdAt: { [Op.lte]: yesterday }
       }
     });
 
     targets.forEach(async (target) => {
       const success = await Auction.findOne({
-        where: {GoodId: target.id},
+        where: { GoodId: target.id },
         order: [['bid', 'DESC']]
       });
 
-      await Good.update({SoldId: success.UserId}, {where: {id: target.id}});
+      await Good.update(
+        { SoldId: success.UserId },
+        { where: { id: target.id } }
+      );
 
       await User.update(
         {
           money: sequelize.literal(`money - ${success.bid}`)
         },
         {
-          where: {id: success.UserId}
+          where: { id: success.UserId }
         }
       );
     });

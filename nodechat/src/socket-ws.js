@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 
 // 웹소켓을 사용
 module.exports = (server) => {
-  const wss = new WebSocket.Server({server}); // server는 express가 됨
+  const wss = new WebSocket.Server({ server }); // server는 express가 됨
 
   wss.on('connection', (ws, req) => {
     // 웹소켓 연결 시

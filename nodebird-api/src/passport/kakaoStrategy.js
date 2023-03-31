@@ -15,7 +15,7 @@ module.exports = () => {
 
         try {
           const exUser = await User.findOne({
-            where: {snsId: profile.id, provider: 'kakao'}
+            where: { snsId: profile.id, provider: 'kakao' }
           });
 
           if (exUser) {

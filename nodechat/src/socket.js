@@ -7,7 +7,7 @@ const wrap = (middleware) => (socket, next) =>
   middleware(socket.request, {}, next);
 
 module.exports = (server, app, sessionMiddleware) => {
-  const io = SocketIO(server, {path: '/socket.io'});
+  const io = SocketIO(server, { path: '/socket.io' });
 
   app.set('io', io);
 
@@ -30,7 +30,7 @@ module.exports = (server, app, sessionMiddleware) => {
 
     const req = socket.request;
     const {
-      headers: {referer}
+      headers: { referer }
     } = req;
     const roomId = referer
       .split('/')

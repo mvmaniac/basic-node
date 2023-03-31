@@ -1,12 +1,12 @@
 jest.mock('../models/user');
 
-const {addFollowing} = require('./user');
+const { addFollowing } = require('./user');
 const User = require('../models/user');
 
 describe('addFollowing', () => {
   const req = {
-    user: {id: 1},
-    params: {id: 2}
+    user: { id: 1 },
+    params: { id: 2 }
   };
   const res = {
     status: jest.fn(() => res),

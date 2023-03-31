@@ -3,8 +3,8 @@ const multer = require('multer');
 const path = require('path');
 const schedule = require('node-schedule');
 
-const {Good, Auction, User, sequelize} = require('../models');
-const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
+const { Good, Auction, User, sequelize } = require('../models');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router.use((req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const goods = await Good.findAll({where: {SoldId: null}});
+    const goods = await Good.findAll({ where: { SoldId: null } });
     res.render('main', {
       title: 'NodeAuction',
       goods
@@ -33,7 +33,7 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 });
 
 router.get('/good', isLoggedIn, (req, res) => {
-  res.render('good', {title: '상품 등록 - NodeAuction'});
+  res.render('good', { title: '상품 등록 - NodeAuction' });
 });
 
 const upload = multer({
@@ -49,7 +49,7 @@ const upload = multer({
       );
     }
   }),
-  limits: {fileSize: 5 * 1024 * 1024}
+  limits: { fileSize: 5 * 1024 * 1024 }
 });
 router.post(
   '/good',
@@ -57,7 +57,7 @@ router.post(
   upload.single('img'),
   async (req, res, next) => {
     try {
-      const {name, price} = req.body;
+      const { name, price } = req.body;
       const good = await Good.create({
         OwnerId: req.user.id,
         name,
@@ -69,16 +69,19 @@ router.post(
       end.setDate(end.getDate() + 1); // 하루 뒤
       schedule.scheduleJob(end, async () => {
         const success = await Auction.findOne({
-          where: {GoodId: good.id},
+          where: { GoodId: good.id },
           order: [['bid', 'DESC']]
         });
-        await Good.update({SoldId: success.UserId}, {where: {id: good.id}});
+        await Good.update(
+          { SoldId: success.UserId },
+          { where: { id: good.id } }
+        );
         await User.update(
           {
             money: sequelize.literal(`money - ${success.bid}`)
           },
           {
-            where: {id: success.UserId}
+            where: { id: success.UserId }
           }
         );
       });
@@ -95,15 +98,15 @@ router.get('/good/:id', isLoggedIn, async (req, res, next) => {
   try {
     const [good, auction] = await Promise.all([
       Good.findOne({
-        where: {id: req.params.id},
+        where: { id: req.params.id },
         include: {
           model: User,
           as: 'Owner'
         }
       }),
       Auction.findAll({
-        where: {GoodId: req.params.id},
-        include: {model: User},
+        where: { GoodId: req.params.id },
+        include: { model: User },
         order: [['bid', 'ASC']]
       })
     ]);
@@ -120,11 +123,11 @@ router.get('/good/:id', isLoggedIn, async (req, res, next) => {
 
 router.post('/good/:id/bid', isLoggedIn, async (req, res, next) => {
   try {
-    const {bid, msg} = req.body;
+    const { bid, msg } = req.body;
     const good = await Good.findOne({
-      where: {id: req.params.id},
-      include: {model: Auction},
-      order: [[{model: Auction}, 'bid', 'DESC']]
+      where: { id: req.params.id },
+      include: { model: Auction },
+      order: [[{ model: Auction }, 'bid', 'DESC']]
     });
 
     if (good.price >= bid) {
@@ -162,11 +165,11 @@ router.post('/good/:id/bid', isLoggedIn, async (req, res, next) => {
 router.get('/list', isLoggedIn, async (req, res, next) => {
   try {
     const goods = await Good.findAll({
-      where: {SoldId: req.user.id},
-      include: {model: Auction},
-      order: [[{model: Auction}, 'bid', 'DESC']]
+      where: { SoldId: req.user.id },
+      include: { model: Auction },
+      order: [[{ model: Auction }, 'bid', 'DESC']]
     });
-    res.render('list', {title: '낙찰 목록 - NodeAuction', goods});
+    res.render('list', { title: '낙찰 목록 - NodeAuction', goods });
   } catch (error) {
     console.error(error);
     next(error);

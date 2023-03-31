@@ -3,8 +3,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const {isLoggedIn} = require('./middlewares');
-const {Post, Hashtag} = require('../models');
+const { isLoggedIn } = require('./middlewares');
+const { Post, Hashtag } = require('../models');
 
 const router = express.Router();
 
@@ -25,12 +25,12 @@ const upload = multer({
       cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
     }
   }),
-  limits: {fileSize: 5 * 1024 * 1024} // 5MB
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
 });
 
 router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
   console.log(req.file);
-  res.json({url: `/img/${req.file.filename}`});
+  res.json({ url: `/img/${req.file.filename}` });
 });
 
 const upload2 = multer();
@@ -49,7 +49,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       const result = await Promise.all(
         hashtags.map((tag) =>
           Hashtag.findOrCreate({
-            where: {title: tag.slice(1).toLowerCase()}
+            where: { title: tag.slice(1).toLowerCase() }
           })
         )
       );

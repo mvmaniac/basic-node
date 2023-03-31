@@ -43,12 +43,12 @@ app.use(
 
 // bodyParser 대체
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // 공통 미들웨어 설정 (함수가 미들웨어 임...)
 // 주소를 직접 정할 수도 있음 app.use('/about', (req, res, next) => {})
 app.use(
-  (req, res, next) => {
+  (_req, _res, next) => {
     console.log('모든 요청에 실행됨...');
     next(); // 다음 라우터로 넘김
   }
@@ -72,7 +72,7 @@ app.use('/view', viewRouter);
 // });
 
 // 에러 미들웨어
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   console.error(err);
   res.send('에러 났음');
 });

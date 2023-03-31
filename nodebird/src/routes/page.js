@@ -1,7 +1,7 @@
 const express = require('express');
 
-const {Post, User, Hashtag} = require('../models');
-const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
+const { Post, User, Hashtag } = require('../models');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 const router = express.Router();
 
@@ -17,11 +17,11 @@ router.use((req, res, next) => {
 });
 
 router.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile', {title: '내 정보 - NodeBird'});
+  res.render('profile', { title: '내 정보 - NodeBird' });
 });
 
 router.get('/join', isNotLoggedIn, (req, res) => {
-  res.render('join', {title: '회원가입 - NodeBird'});
+  res.render('join', { title: '회원가입 - NodeBird' });
 });
 
 router.get('/', async (req, res, next) => {
@@ -52,7 +52,7 @@ router.get('/hashtag', async (req, res, next) => {
   }
 
   try {
-    const hashtag = await Hashtag.findOne({where: {title: query}});
+    const hashtag = await Hashtag.findOne({ where: { title: query } });
     let posts = [];
 
     if (hashtag) {

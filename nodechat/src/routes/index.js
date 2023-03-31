@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
   try {
     const rooms = await Room.find({});
-    res.render('main', {rooms, title: 'GIF 채팅방'});
+    res.render('main', { rooms, title: 'GIF 채팅방' });
   } catch (error) {
     console.error(error);
     next(error);
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/room', (req, res) => {
-  res.render('room', {title: 'GIF 채팅방 생성'});
+  res.render('room', { title: 'GIF 채팅방 생성' });
 });
 
 router.post('/room', async (req, res, next) => {
@@ -41,7 +41,7 @@ router.post('/room', async (req, res, next) => {
 
 router.get('/room/:id', async (req, res, next) => {
   try {
-    const room = await Room.findOne({_id: req.params.id});
+    const room = await Room.findOne({ _id: req.params.id });
     const io = req.app.get('io');
 
     if (!room) {
@@ -52,7 +52,7 @@ router.get('/room/:id', async (req, res, next) => {
       return res.redirect('/?error=비밀번호가 틀렸습니다.');
     }
 
-    const {rooms} = io.of('/chat').adapter;
+    const { rooms } = io.of('/chat').adapter;
     if (
       rooms &&
       rooms[req.params.id] &&
@@ -61,7 +61,7 @@ router.get('/room/:id', async (req, res, next) => {
       return res.redirect('/?error=허용 인원이 초과하였습니다.');
     }
 
-    const chats = await Chat.find({room: room._id}).sort('createdAt');
+    const chats = await Chat.find({ room: room._id }).sort('createdAt');
     return res.render('chat', {
       room,
       title: room.title,
@@ -76,8 +76,8 @@ router.get('/room/:id', async (req, res, next) => {
 
 router.delete('/room/:id', async (req, res, next) => {
   try {
-    await Room.remove({_id: req.params.id});
-    await Chat.remove({room: req.params.id});
+    await Room.deleteOne({ _id: req.params.id });
+    await Chat.deleteOne({ room: req.params.id });
 
     res.send('ok');
 
@@ -116,7 +116,7 @@ const upload = multer({
       done(null, path.basename(file.originalname, ext) + Date.now() + ext);
     }
   }),
-  limits: {fileSize: 5 * 1024 * 1024} // 5MB
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
 });
 
 router.post('/room/:id/gif', upload.single('gif'), async (req, res, next) => {
