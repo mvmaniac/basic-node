@@ -6,12 +6,12 @@ module.exports = class Post extends Sequelize.Model {
       {
         content: {
           type: Sequelize.STRING(140),
-          allowNull: false
+          allowNull: false,
         },
         img: {
           type: Sequelize.STRING(200),
-          allowNull: true
-        }
+          allowNull: true,
+        },
       },
       {
         sequelize,
@@ -21,8 +21,8 @@ module.exports = class Post extends Sequelize.Model {
         modelName: 'Post',
         tableName: 'posts',
         charset: 'utf8mb4',
-        collate: 'utf8mb4_general_ci'
-      }
+        collate: 'utf8mb4_general_ci',
+      },
     );
   }
 

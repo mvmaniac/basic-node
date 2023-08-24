@@ -6,24 +6,24 @@ module.exports = class Domain extends Sequelize.Model {
       {
         host: {
           type: Sequelize.STRING(80),
-          allowNull: false
+          allowNull: false,
         },
         type: {
           type: Sequelize.ENUM('free', 'premium'),
-          allowNull: false
+          allowNull: false,
         },
         clientSecret: {
           type: Sequelize.STRING(36),
-          allowNull: false
-        }
+          allowNull: false,
+        },
       },
       {
         sequelize,
         timestamps: true,
         paranoid: true,
         modelName: 'Domain',
-        tableName: 'domains'
-      }
+        tableName: 'domains',
+      },
     );
   }
 

@@ -13,7 +13,7 @@ app.set('port', process.env.PORT || 4000);
 app.set('view engine', 'html');
 nunjucks.configure('src/views', {
   express: app,
-  watch: true
+  watch: true,
 });
 
 app.use(morgan('dev'));
@@ -25,9 +25,9 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
-      secure: false
-    }
-  })
+      secure: false,
+    },
+  }),
 );
 
 app.use('/', indexRouter);

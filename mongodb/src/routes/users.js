@@ -20,7 +20,7 @@ router
       const user = await User.create({
         name: req.body.name,
         age: req.body.age,
-        married: req.body.married
+        married: req.body.married,
       });
       console.log(user);
       res.status(201).json(user);
@@ -33,7 +33,7 @@ router
 router.get('/:id/comments', async (req, res, next) => {
   try {
     const comments = await Comment.find({ commenter: req.params.id }).populate(
-      'commenter'
+      'commenter',
     );
     console.log(comments);
     res.json(comments);

@@ -23,5 +23,5 @@ console.log('========');
 console.log(`path.extname: ${path.extname(pathJoin1)}`);
 console.log(`path.dirname: ${path.dirname(pathJoin1)}`);
 console.log(
-  `path.filename: ${path.basename(pathJoin1, path.extname(pathJoin1))}`
+  `path.filename: ${path.basename(pathJoin1, path.extname(pathJoin1))}`,
 );

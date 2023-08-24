@@ -27,7 +27,7 @@ app.set('port', process.env.PORT || 8001);
 app.set('view engine', 'html');
 nunjucks.configure('src/views', {
   express: app,
-  watch: true
+  watch: true,
 });
 
 sequelize
@@ -61,8 +61,8 @@ const sessionOption = {
   secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
-    secure: false
-  }
+    secure: false,
+  },
 };
 
 if (process.env.NODE_ENV === 'production') {

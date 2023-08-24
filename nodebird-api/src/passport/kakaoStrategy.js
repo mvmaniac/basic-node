@@ -8,14 +8,14 @@ module.exports = () => {
     new KakaoStrategy(
       {
         clientID: process.env.KAKAO_ID,
-        callbackURL: '/auth/kakao/callback'
+        callbackURL: '/auth/kakao/callback',
       },
       async (accessToken, refreshToken, profile, done) => {
         console.log('kakao profile', profile);
 
         try {
           const exUser = await User.findOne({
-            where: { snsId: profile.id, provider: 'kakao' }
+            where: { snsId: profile.id, provider: 'kakao' },
           });
 
           if (exUser) {
@@ -25,7 +25,7 @@ module.exports = () => {
               email: profile._json && profile._json.kakao_account_email,
               nick: profile.displayName,
               snsId: profile.id,
-              provider: 'kakao'
+              provider: 'kakao',
             });
 
             done(null, newUser);
@@ -34,7 +34,7 @@ module.exports = () => {
           console.error(error);
           done(error);
         }
-      }
-    )
+      },
+    ),
   );
 };

@@ -7,25 +7,25 @@ module.exports = class User extends Sequelize.Model {
         name: {
           type: Sequelize.STRING(20),
           allowNull: false,
-          unique: true
+          unique: true,
         },
         age: {
           type: Sequelize.INTEGER.UNSIGNED,
-          allowNull: false
+          allowNull: false,
         },
         married: {
           type: Sequelize.BOOLEAN,
-          allowNull: false
+          allowNull: false,
         },
         comment: {
           type: Sequelize.TEXT,
-          allowNull: true
+          allowNull: true,
         },
         created_at: {
           type: Sequelize.DATE, // DATETIME
           allowNull: false,
-          defaultValue: Sequelize.NOW
-        }
+          defaultValue: Sequelize.NOW,
+        },
       },
       {
         sequelize,
@@ -35,8 +35,8 @@ module.exports = class User extends Sequelize.Model {
         modelName: 'User',
         tableName: 'users', // 모델 이름을 기준으로 복수형으로 자동으로 생성됨?
         charset: 'utf8',
-        collate: 'utf8_general_ci'
-      }
+        collate: 'utf8_general_ci',
+      },
     );
   }
 

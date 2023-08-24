@@ -23,9 +23,9 @@ const upload = multer({
     filename(req, file, cb) {
       const ext = path.extname(file.originalname);
       cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
-    }
+    },
   }),
-  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
 router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
@@ -41,7 +41,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
     const post = await Post.create({
       content: req.body.content,
       img: req.body.url,
-      UserId: req.user.id
+      UserId: req.user.id,
     });
 
     const hashtags = req.body.content.match(/#[^\s#]*/g);
@@ -49,9 +49,9 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       const result = await Promise.all(
         hashtags.map((tag) =>
           Hashtag.findOrCreate({
-            where: { title: tag.slice(1).toLowerCase() }
-          })
-        )
+            where: { title: tag.slice(1).toLowerCase() },
+          }),
+        ),
       );
 
       await post.addHashtags(result.map((r) => r[0]));

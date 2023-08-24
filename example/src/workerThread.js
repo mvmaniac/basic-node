@@ -2,7 +2,7 @@ const {
   Worker,
   isMainThread,
   parentPort,
-  workerData
+  workerData,
 } = require('worker_threads');
 
 if (isMainThread) {
@@ -11,14 +11,14 @@ if (isMainThread) {
 
   threads.add(
     new Worker(__filename, {
-      workerData: { start: 1 }
-    })
+      workerData: { start: 1 },
+    }),
   );
 
   threads.add(
     new Worker(__filename, {
-      workerData: { start: 2 }
-    })
+      workerData: { start: 2 },
+    }),
   );
 
   // eslint-disable-next-line no-restricted-syntax

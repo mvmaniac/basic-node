@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
     const goods = await Good.findAll({ where: { SoldId: null } });
     res.render('main', {
       title: 'NodeAuction',
-      goods
+      goods,
     });
   } catch (error) {
     console.error(error);
@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/join', isNotLoggedIn, (req, res) => {
   res.render('join', {
-    title: '회원가입 - NodeAuction'
+    title: '회원가입 - NodeAuction',
   });
 });
 
@@ -45,11 +45,11 @@ const upload = multer({
       const ext = path.extname(file.originalname);
       cb(
         null,
-        path.basename(file.originalname, ext) + new Date().valueOf() + ext
+        path.basename(file.originalname, ext) + new Date().valueOf() + ext,
       );
-    }
+    },
   }),
-  limits: { fileSize: 5 * 1024 * 1024 }
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 router.post(
   '/good',
@@ -62,7 +62,7 @@ router.post(
         OwnerId: req.user.id,
         name,
         img: req.file.filename,
-        price
+        price,
       });
 
       const end = new Date();
@@ -70,19 +70,19 @@ router.post(
       schedule.scheduleJob(end, async () => {
         const success = await Auction.findOne({
           where: { GoodId: good.id },
-          order: [['bid', 'DESC']]
+          order: [['bid', 'DESC']],
         });
         await Good.update(
           { SoldId: success.UserId },
-          { where: { id: good.id } }
+          { where: { id: good.id } },
         );
         await User.update(
           {
-            money: sequelize.literal(`money - ${success.bid}`)
+            money: sequelize.literal(`money - ${success.bid}`),
           },
           {
-            where: { id: success.UserId }
-          }
+            where: { id: success.UserId },
+          },
         );
       });
 
@@ -91,7 +91,7 @@ router.post(
       console.error(error);
       next(error);
     }
-  }
+  },
 );
 
 router.get('/good/:id', isLoggedIn, async (req, res, next) => {
@@ -101,19 +101,19 @@ router.get('/good/:id', isLoggedIn, async (req, res, next) => {
         where: { id: req.params.id },
         include: {
           model: User,
-          as: 'Owner'
-        }
+          as: 'Owner',
+        },
       }),
       Auction.findAll({
         where: { GoodId: req.params.id },
         include: { model: User },
-        order: [['bid', 'ASC']]
-      })
+        order: [['bid', 'ASC']],
+      }),
     ]);
     res.render('auction', {
       title: `${good.name} - NodeAuction`,
       good,
-      auction
+      auction,
     });
   } catch (error) {
     console.error(error);
@@ -127,7 +127,7 @@ router.post('/good/:id/bid', isLoggedIn, async (req, res, next) => {
     const good = await Good.findOne({
       where: { id: req.params.id },
       include: { model: Auction },
-      order: [[{ model: Auction }, 'bid', 'DESC']]
+      order: [[{ model: Auction }, 'bid', 'DESC']],
     });
 
     if (good.price >= bid) {
@@ -146,14 +146,14 @@ router.post('/good/:id/bid', isLoggedIn, async (req, res, next) => {
       bid,
       msg,
       UserId: req.user.id,
-      GoodId: req.params.id
+      GoodId: req.params.id,
     });
 
     // 실시간으로 입찰 내역 전송
     req.app.get('io').to(req.params.id).emit('bid', {
       bid: result.bid,
       msg: result.msg,
-      nick: req.user.nick
+      nick: req.user.nick,
     });
     return res.send('ok');
   } catch (error) {
@@ -167,7 +167,7 @@ router.get('/list', isLoggedIn, async (req, res, next) => {
     const goods = await Good.findAll({
       where: { SoldId: req.user.id },
       include: { model: Auction },
-      order: [[{ model: Auction }, 'bid', 'DESC']]
+      order: [[{ model: Auction }, 'bid', 'DESC']],
     });
     res.render('list', { title: '낙찰 목록 - NodeAuction', goods });
   } catch (error) {

@@ -7,12 +7,12 @@ module.exports = class Auction extends Sequelize.Model {
         bid: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          defaultValue: 0
+          defaultValue: 0,
         },
         msg: {
           type: Sequelize.STRING(100),
-          allowNull: true
-        }
+          allowNull: true,
+        },
       },
       {
         sequelize,
@@ -21,8 +21,8 @@ module.exports = class Auction extends Sequelize.Model {
         modelName: 'Auction',
         tableName: 'auctions',
         charset: 'utf8',
-        collate: 'utf8_general_ci'
-      }
+        collate: 'utf8_general_ci',
+      },
     );
   }
 

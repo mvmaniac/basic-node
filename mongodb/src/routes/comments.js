@@ -7,7 +7,7 @@ router.post('/', async (req, res, next) => {
   try {
     const comment = await Comment.create({
       commenter: req.body.id,
-      comment: req.body.comment
+      comment: req.body.comment,
     });
     console.log(comment);
     const result = await Comment.populate(comment, { path: 'commenter' });
@@ -24,11 +24,11 @@ router
     try {
       const result = await Comment.updateOne(
         {
-          _id: req.params.id
+          _id: req.params.id,
         },
         {
-          comment: req.body.comment
-        }
+          comment: req.body.comment,
+        },
       );
       res.json(result);
     } catch (err) {

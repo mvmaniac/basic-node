@@ -9,7 +9,7 @@ module.exports = () => {
     new LocalStrategy(
       {
         usernameField: 'email',
-        passwordField: 'password'
+        passwordField: 'password',
       },
       async (email, password, done) => {
         try {
@@ -30,7 +30,7 @@ module.exports = () => {
           console.error(error);
           done(error);
         }
-      }
-    )
+      },
+    ),
   );
 };

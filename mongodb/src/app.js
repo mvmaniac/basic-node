@@ -13,7 +13,7 @@ app.set('port', process.env.PORT || 3002);
 app.set('view engine', 'html');
 nunjucks.configure('src/views', {
   express: app,
-  watch: true
+  watch: true,
 });
 connect();
 

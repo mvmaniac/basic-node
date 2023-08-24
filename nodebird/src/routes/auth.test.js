@@ -21,7 +21,7 @@ describe('POST /join', () => {
       .post('/auth/login')
       .send({
         email: 'test@gmail.com',
-        password: '1234'
+        password: '1234',
       })
       .end(done);
   });
@@ -42,7 +42,7 @@ describe('POST /login', () => {
       .post('/auth/login')
       .send({
         email: 'test@gmail.com',
-        password: '1234'
+        password: '1234',
       })
       .expect('Location', '/')
       .expect(302, done);
@@ -54,7 +54,7 @@ describe('POST /login', () => {
       .post('/auth/login')
       .send({
         email: 'test1@gmail.com',
-        password: '1234'
+        password: '1234',
       })
       .expect('Location', `/?loginError=${message}`)
       .expect(302, done);
@@ -66,7 +66,7 @@ describe('POST /login', () => {
       .post('/auth/login')
       .send({
         email: 'test@gmail.com',
-        password: '1111'
+        password: '1111',
       })
       .expect('Location', `/?loginError=${message}`)
       .expect(302, done);
@@ -84,7 +84,7 @@ describe('GET /logout', () => {
       .post('/auth/login')
       .send({
         email: 'test@gmail.com',
-        password: '1234'
+        password: '1234',
       })
       .end(done);
   });

@@ -5,21 +5,21 @@ const userSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   age: {
     type: Number,
-    required: true
+    required: true,
   },
   married: {
     type: Boolean,
-    required: true
+    required: true,
   },
   comment: String,
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -30,7 +30,7 @@ module.exports = (server, app, sessionMiddleware) => {
 
     const req = socket.request;
     const {
-      headers: { referer }
+      headers: { referer },
     } = req;
     const roomId = referer
       .split('/')
@@ -39,7 +39,7 @@ module.exports = (server, app, sessionMiddleware) => {
     socket.join(roomId);
     socket.to(roomId).emit('join', {
       user: 'system',
-      chat: `${req.session.color}님이 입장하셨습니다.`
+      chat: `${req.session.color}님이 입장하셨습니다.`,
     });
 
     socket.on('disconnect', () => {
@@ -54,15 +54,15 @@ module.exports = (server, app, sessionMiddleware) => {
         // 유저가 0명이면 방 삭제
         const signedCookie = cookie.sign(
           req.signedCookies['connect.sid'],
-          process.env.COOKIE_SECRET
+          process.env.COOKIE_SECRET,
         );
         const connectSID = `${signedCookie}`;
 
         axios
           .delete(`http://localhost:8005/room/${roomId}`, {
             headers: {
-              Cookie: `connect.sid=s%3A${connectSID}`
-            }
+              Cookie: `connect.sid=s%3A${connectSID}`,
+            },
           })
           .then(() => {
             console.log('방 제거 요청 성공');
@@ -73,7 +73,7 @@ module.exports = (server, app, sessionMiddleware) => {
       } else {
         socket.to(roomId).emit('exit', {
           user: 'system',
-          chat: `${req.session.color}님이 퇴장하셨습니다.`
+          chat: `${req.session.color}님이 퇴장하셨습니다.`,
         });
       }
     });

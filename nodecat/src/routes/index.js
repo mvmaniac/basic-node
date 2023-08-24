@@ -10,7 +10,7 @@ const request = async (req, api) => {
     if (!req.session.jwt) {
       // 세션에 토큰이 없으면
       const tokenResult = await axios.post(`${URL}/token`, {
-        clientSecret: process.env.CLIENT_SECRET
+        clientSecret: process.env.CLIENT_SECRET,
       });
 
       req.session.jwt = tokenResult.data.token; // 세션에 토큰 저장
@@ -18,7 +18,7 @@ const request = async (req, api) => {
 
     // API 요청 동시에 응답 값 반환
     return await axios.get(`${URL}${api}`, {
-      headers: { authorization: req.session.jwt }
+      headers: { authorization: req.session.jwt },
     });
   } catch (error) {
     if (error.response.status === 419) {
@@ -46,7 +46,7 @@ router.get('/search/:hashtag', async (req, res, next) => {
   try {
     const result = await request(
       req,
-      `/posts/hashtag/${encodeURIComponent(req.params.hashtag)}`
+      `/posts/hashtag/${encodeURIComponent(req.params.hashtag)}`,
     );
 
     res.json(result.data);

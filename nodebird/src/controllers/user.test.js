@@ -6,11 +6,11 @@ const User = require('../models/user');
 describe('addFollowing', () => {
   const req = {
     user: { id: 1 },
-    params: { id: 2 }
+    params: { id: 2 },
   };
   const res = {
     status: jest.fn(() => res),
-    send: jest.fn()
+    send: jest.fn(),
   };
   const next = jest.fn();
 
@@ -19,8 +19,8 @@ describe('addFollowing', () => {
       Promise.resolve({
         addFollowing(id) {
           return Promise.resolve(true);
-        }
-      })
+        },
+      }),
     );
 
     await addFollowing(req, res, next);

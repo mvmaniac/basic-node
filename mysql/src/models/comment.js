@@ -6,13 +6,13 @@ module.exports = class Comment extends Sequelize.Model {
       {
         comment: {
           type: Sequelize.STRING(100),
-          allowNull: false
+          allowNull: false,
         },
         created_at: {
           type: Sequelize.DATE,
           allowNull: true,
-          defaultValue: Sequelize.NOW
-        }
+          defaultValue: Sequelize.NOW,
+        },
       },
       {
         sequelize,
@@ -21,8 +21,8 @@ module.exports = class Comment extends Sequelize.Model {
         modelName: 'Comment',
         tableName: 'comments',
         charset: 'utf8mb4',
-        collate: 'utf8mb4_general_ci'
-      }
+        collate: 'utf8mb4_general_ci',
+      },
     );
   }
 

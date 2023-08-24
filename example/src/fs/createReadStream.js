@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const readStream = fs.createReadStream('./createRead.txt', {
-  highWaterMark: 16
+  highWaterMark: 16,
 }); // 기본이 64KB임, 지금은 테스트 떄문에 16Byte로 함
 const data = [];
 

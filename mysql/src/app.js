@@ -14,7 +14,7 @@ app.set('view engine', 'html');
 
 nunjucks.configure('src/views', {
   express: app,
-  watch: true
+  watch: true,
 });
 
 sequelize

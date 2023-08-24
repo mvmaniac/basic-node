@@ -19,7 +19,7 @@ app.set('view engine', 'html');
 // src 폴더 아래에 있어서...
 nunjucks.configure(`src/views`, {
   express: app,
-  watch: true
+  watch: true,
 });
 
 app.use(morgan('dev')); // 개발 시
@@ -36,9 +36,9 @@ app.use(
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
-      httpOnly: true
-    }
-  })
+      httpOnly: true,
+    },
+  }),
 );
 
 // bodyParser 대체
@@ -51,7 +51,7 @@ app.use(
   (_req, _res, next) => {
     console.log('모든 요청에 실행됨...');
     next(); // 다음 라우터로 넘김
-  }
+  },
   // (req, res, next) => {
   //   try {
   //     throw new Error();

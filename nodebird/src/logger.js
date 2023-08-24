@@ -5,8 +5,8 @@ const logger = createLogger({
   format: format.json(),
   transports: [
     new transports.File({ filename: 'combined.log' }),
-    new transports.File({ filename: 'error.log', level: 'error' })
-  ]
+    new transports.File({ filename: 'error.log', level: 'error' }),
+  ],
 });
 
 if (process.env.NODE_ENV !== 'production') {

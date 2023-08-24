@@ -29,7 +29,7 @@ async function getComment(id) {
         try {
           // eslint-disable-next-line no-undef
           await axios.patch(`/comments/${comment._id}`, {
-            comment: newComment
+            comment: newComment,
           });
           getComment(id);
         } catch (err) {

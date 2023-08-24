@@ -18,7 +18,7 @@ app.set('port', process.env.PORT || 8005);
 app.set('view engine', 'html');
 nunjucks.configure('src/views', {
   express: app,
-  watch: true
+  watch: true,
 });
 connect();
 
@@ -28,8 +28,8 @@ const sessionMiddleware = session({
   secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
-    secure: false
-  }
+    secure: false,
+  },
 });
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));

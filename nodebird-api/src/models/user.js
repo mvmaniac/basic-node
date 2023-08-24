@@ -7,25 +7,25 @@ module.exports = class User extends Sequelize.Model {
         email: {
           type: Sequelize.STRING(40),
           allowNull: true,
-          unique: true
+          unique: true,
         },
         nick: {
           type: Sequelize.STRING(15),
-          allowNull: false
+          allowNull: false,
         },
         password: {
           type: Sequelize.STRING(100),
-          allowNull: true
+          allowNull: true,
         },
         provider: {
           type: Sequelize.STRING(10),
           allowNull: false,
-          defaultValue: 'local'
+          defaultValue: 'local',
         },
         snsId: {
           type: Sequelize.STRING(30),
-          allowNull: true
-        }
+          allowNull: true,
+        },
       },
       {
         sequelize,
@@ -35,8 +35,8 @@ module.exports = class User extends Sequelize.Model {
         modelName: 'User',
         tableName: 'users',
         charset: 'utf8',
-        collate: 'utf8_general_ci'
-      }
+        collate: 'utf8_general_ci',
+      },
     );
   }
 
@@ -45,12 +45,12 @@ module.exports = class User extends Sequelize.Model {
     db.User.belongsToMany(db.User, {
       foreignKey: 'followingId',
       as: 'Followers',
-      through: 'Follow'
+      through: 'Follow',
     });
     db.User.belongsToMany(db.User, {
       foreignKey: 'followerId',
       as: 'Followings',
-      through: 'Follow'
+      through: 'Follow',
     });
     db.User.hasMany(db.Domain);
   }

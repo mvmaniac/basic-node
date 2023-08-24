@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   config.database,
   config.username,
   config.password,
-  config
+  config,
 );
 
 describe('User model test', () => {
@@ -17,9 +17,9 @@ describe('User model test', () => {
     const db = {
       User: {
         hasMany: jest.fn(),
-        belongsToMany: jest.fn()
+        belongsToMany: jest.fn(),
       },
-      Post: {}
+      Post: {},
     };
 
     User.associate(db);

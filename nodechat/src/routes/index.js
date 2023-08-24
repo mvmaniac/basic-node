@@ -27,7 +27,7 @@ router.post('/room', async (req, res, next) => {
       title: req.body.title,
       max: req.body.max,
       owner: req.session.color,
-      password: req.body.password
+      password: req.body.password,
     });
     const io = req.app.get('io');
 
@@ -66,7 +66,7 @@ router.get('/room/:id', async (req, res, next) => {
       room,
       title: room.title,
       chats,
-      user: req.session.color
+      user: req.session.color,
     });
   } catch (error) {
     console.error(error);
@@ -95,7 +95,7 @@ router.post('/room/:id/chat', async (req, res, next) => {
     const chat = await Chat.create({
       room: req.params.id,
       user: req.session.color,
-      chat: req.body.chat
+      chat: req.body.chat,
     });
 
     req.app.get('io').of('/chat').to(req.params.id).emit('chat', chat);
@@ -114,9 +114,9 @@ const upload = multer({
     filename(req, file, done) {
       const ext = path.extname(file.originalname);
       done(null, path.basename(file.originalname, ext) + Date.now() + ext);
-    }
+    },
   }),
-  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
 router.post('/room/:id/gif', upload.single('gif'), async (req, res, next) => {
@@ -124,7 +124,7 @@ router.post('/room/:id/gif', upload.single('gif'), async (req, res, next) => {
     const chat = await Chat.create({
       room: req.params.id,
       user: req.session.color,
-      gif: req.file.filename
+      gif: req.file.filename,
     });
 
     req.app.get('io').of('/chat').to(req.params.id).emit('chat', chat);

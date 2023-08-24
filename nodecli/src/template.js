@@ -44,7 +44,7 @@ const exist = (dir) => {
     fs.accessSync(
       dir,
       // eslint-disable-next-line no-bitwise
-      fs.constants.F_OK | fs.constants.R_OK | fs.constants.W_OK
+      fs.constants.F_OK | fs.constants.R_OK | fs.constants.W_OK,
     );
     return true;
   } catch (e) {
@@ -107,7 +107,7 @@ const nameAnswer = (answer) => {
   name = answer;
   return rl.question(
     '저장할 경로를 설정하세요.(설정하지 않으면 현재경로) ',
-    dirAnswer
+    dirAnswer,
   );
 };
 
@@ -126,7 +126,7 @@ const program = () => {
   if (!type || !name) {
     rl = readline.createInterface({
       input: process.stdin,
-      output: process.stdout
+      output: process.stdout,
     });
     console.clear();
     rl.question('어떤 템플릿이 필요하십니까? ', typeAnswer);

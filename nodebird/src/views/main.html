@@ -54,7 +54,7 @@
 {% endblock %} {% block script %}
 <script>
   if (document.getElementById('img')) {
-    document.getElementById('img').addEventListener('change', function (e) {
+    document.getElementById('img').addEventListener('change', function(e) {
       const formData = new FormData();
       console.log(this, this.files);
       formData.append('img', this.files[0]);
@@ -70,8 +70,8 @@
         });
     });
   }
-  document.querySelectorAll('.twit-follow').forEach(function (tag) {
-    tag.addEventListener('click', function () {
+  document.querySelectorAll('.twit-follow').forEach(function(tag) {
+    tag.addEventListener('click', function() {
       const myId = document.querySelector('#my-id');
       if (myId) {
         const userId = tag.parentNode.querySelector('.twit-user-id').value;

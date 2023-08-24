@@ -29,14 +29,14 @@ router.get('/', async (req, res, next) => {
     const posts = await Post.findAll({
       include: {
         model: User,
-        attributes: ['id', 'nick']
+        attributes: ['id', 'nick'],
       },
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
     });
 
     res.render('main', {
       title: 'NodeBird',
-      twits: posts
+      twits: posts,
     });
   } catch (err) {
     console.error(err);
@@ -60,15 +60,15 @@ router.get('/hashtag', async (req, res, next) => {
         include: [
           {
             model: User,
-            attribute: ['id', 'nick']
-          }
-        ]
+            attribute: ['id', 'nick'],
+          },
+        ],
       });
     }
 
     return res.render('main', {
       title: `${query} | NodeBird`,
-      twits: posts
+      twits: posts,
     });
   } catch (error) {
     console.error(error);

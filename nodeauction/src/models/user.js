@@ -7,21 +7,21 @@ module.exports = class User extends Sequelize.Model {
         email: {
           type: Sequelize.STRING(40),
           allowNull: false,
-          unique: true
+          unique: true,
         },
         nick: {
           type: Sequelize.STRING(15),
-          allowNull: false
+          allowNull: false,
         },
         password: {
           type: Sequelize.STRING(100),
-          allowNull: true
+          allowNull: true,
         },
         money: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          defaultValue: 0
-        }
+          defaultValue: 0,
+        },
       },
       {
         sequelize,
@@ -30,8 +30,8 @@ module.exports = class User extends Sequelize.Model {
         modelName: 'User',
         tableName: 'users',
         charset: 'utf8',
-        collate: 'utf8_general_ci'
-      }
+        collate: 'utf8_general_ci',
+      },
     );
   }
 
